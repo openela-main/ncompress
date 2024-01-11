@@ -1,0 +1,55 @@
+From 14d486afed1a1c5ef5ad14f92e52537e6aa68aad Mon Sep 17 00:00:00 2001
+From: Ondrej Dubaj <odubaj@redhat.com>
+Date: Wed, 6 May 2020 13:23:42 +0200
+Subject: [PATCH] Do not set exit_code when an error is ignored
+
+---
+ compress42.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/compress42.c b/compress42.c
+index 834c2f2..3dd3d19 100644
+--- a/compress42.c
++++ b/compress42.c
+@@ -1193,7 +1193,6 @@ comprexx(fileptr)
+ 					{
+ 						fprintf(stderr, "\nunlink error (ignored) ");
+ 	    				perror(ofname);
+-						exit_code = 1;
+ 					}
+ 		
+ 					remove_ofname = 0;
+@@ -1241,7 +1240,6 @@ comprexx(fileptr)
+ 					{
+ 						fprintf(stderr, "\nutime error (ignored) ");
+ 				    	perror(ofname);
+-						exit_code = 1;
+ 					}
+ 
+ #ifndef	AMIGA
+@@ -1249,14 +1247,12 @@ comprexx(fileptr)
+ 					{
+ 						fprintf(stderr, "\nchmod error (ignored) ");
+ 				    	perror(ofname);
+-						exit_code = 1;
+ 					}
+ #ifndef	DOS
+ 					if (chown(ofname, infstat.st_uid, infstat.st_gid))	/* Copy ownership */
+ 					{
+ 						fprintf(stderr, "\nchown error (ignored) ");
+ 						perror(ofname);
+-						exit_code = 1;
+ 					}
+ #endif
+ #endif
+@@ -1266,7 +1262,6 @@ comprexx(fileptr)
+ 					{
+ 						fprintf(stderr, "\nunlink error (ignored) ");
+ 	    				perror(ifname);
+-						exit_code = 1;
+ 					}
+     			}
+     		}
+-- 
+2.24.1
+
